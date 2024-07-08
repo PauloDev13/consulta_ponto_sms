@@ -6,15 +6,16 @@ from botcity.plugins.excel import BotExcelPlugin
 
 from time import sleep
 
-from utils import login, authenticate, persistence
+from utils import authenticate, credentials, persistence
 from service import data_extractor
 
-
 # --- Módulo de Interface do Usuário ---
+
 excel_file: BotExcelPlugin = BotExcelPlugin()
 
+
 def main():
-    get_url = authenticate.get_credentials('config.yaml')
+    get_url = credentials.get_credentials('config.yaml')
     url_login = get_url.get('URL_BASE')
     url_data = get_url.get('URL_DATA')
 
@@ -40,14 +41,14 @@ def main():
     if st.button('Gerar arquivo'):
         driver = webdriver.Chrome(ChromeDriverManager().install())
 
-        if login.authentication(driver, url_login):
+        if authenticate.login(driver, url_login):
             st.success("Login realizado com sucesso!")
 
             data = data_extractor.extrac_to_data(driver, url_data, params, excel_file)
 
             if data:
                 persistence.save_data(excel_file, params)
-                print('GEROU DADOS')
+                print('GEROU OS DADOS')
             else:
                 st.warning("Nenhum dado encontrado na tabela.")
 
