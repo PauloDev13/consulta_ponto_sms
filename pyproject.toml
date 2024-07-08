@@ -5,12 +5,14 @@ description = ""
 authors = ["prmorais <prmorais1302@gmail.com>"]
 readme = "README.md"
 
+package-mode = true
+
 [tool.poetry.dependencies]
 python = "^3.12"
 webdriver-manager = "^4.0.1"
 streamlit = "^1.36.0"
 botcity-excel-plugin = "^0.1.7"
-botcity-framework-web = "^0.9.0"1
+botcity-framework-web = "^0.9.0"
 pyyaml = "^6.0.1"
 
 
