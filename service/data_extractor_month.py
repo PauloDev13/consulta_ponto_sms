@@ -32,8 +32,6 @@ def get_data(
             ec.presence_of_element_located((By.TAG_NAME, "table"))
         )
 
-        # Pode ser necessário um tempo adicional para a renderização completa da tabela
-        # sleep(2)
         # str_name_employe = driver.find_element(
         #     by=By.XPATH,
         #     value='/html/body/div[2]/div/div[2]/div[2]/div[4]/div/span/font[1]').text
@@ -55,5 +53,27 @@ def get_data(
                 'STATUS'
             ]
         )
+
+        for item in data_dict:
+            data_entrada: str = item.get('data_entrada')
+            entrada = item.get('entrada')
+            data_saida: str = item.get('data_saída')
+            saida = item.get('saída')
+            trabalhada = item.get('trabalhada')
+            hora_justificada = item.get('hora_justificada')
+            status = item.get('status')
+
+            # Adciona nova linha no arquivo do Excel a cada interação com os dados
+            excel_file.add_row(
+                [
+                    data_entrada,
+                    entrada,
+                    data_saida,
+                    saida,
+                    trabalhada,
+                    hora_justificada,
+                    status
+                ]
+            )
 
     return data_dict

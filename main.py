@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from botcity.plugins.excel import BotExcelPlugin
 
+from time import sleep
 
 from utils import login, authenticate, persistence
 from service import data_extractor
@@ -45,8 +46,8 @@ def main():
             data = data_extractor.extrac_to_data(driver, url_data, params, excel_file)
 
             if data:
+                persistence.save_data(excel_file, params)
                 print('GEROU DADOS')
-                persistence.save_data(data, excel_file, params)
             else:
                 st.warning("Nenhum dado encontrado na tabela.")
 
@@ -54,6 +55,8 @@ def main():
             if st.button("Nova Pesquisa?"):
                 st.experimental_rerun()  # Reinicia o script para novos parâmetros
             else:
+                print('CAIU NO RERUN')
+                sleep(120)
                 driver.quit()
                 st.success("Navegador fechado.")
         else:
