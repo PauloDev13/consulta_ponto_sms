@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "consulta-ponto-sms"
+version = "0.1.0"
+description = ""
+authors = ["prmorais <prmorais1302@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+webdriver-manager = "^4.0.1"
+streamlit = "^1.36.0"
+botcity-excel-plugin = "^0.1.7"
+botcity-framework-web = "^0.9.0"1
+pyyaml = "^6.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
