@@ -8,7 +8,7 @@ import streamlit as st
 from time import sleep
 
 
-import credentials
+from utils import credentials
 
 # --- Módulo de login ---
 
@@ -44,7 +44,7 @@ def login(driver: webdriver.Chrome, url: str) -> bool:
         driver.switch_to_default_content()
 
         # Espera 15 segundos
-        sleep(20)
+        sleep(30)
 
         # Clique no botão de login
         button_login = driver.find_element(by=By.XPATH, value="//*[@id='form']/input")
