@@ -37,6 +37,7 @@ def main():
         btn_submit: bool = st.form_submit_button('Gerar arquivo :thumbsup:')
 
     if cpf and date_start and date_end:
+
         if (date_start > date_end):
             warning = st.warning('A data inicial deve ser MAIOR OU IGUAL a data final!', icon='⚠️')
             sleep(5)
@@ -57,11 +58,13 @@ def main():
         }
 
         if btn_submit:
+            print('SUBMIT 1')
             driver = driver_module.driver_init()
-            # driver = webdriver.Chrome(ChromeDriverManager().install())
 
             if authenticate.login(driver, url_login):
-                st.success("Login realizado com sucesso!")
+                success = st.success("Login realizado com sucesso!")
+                sleep(4)
+                success.empty()
 
                 data = data_extractor.extrac_to_data(driver, url_data, params, excel_file)
                 # limpar o fomulário
@@ -69,24 +72,32 @@ def main():
                 if data:
                     persistence.save_data(excel_file, params)
                     print('GEROU OS DADOS')
-                    # sleep(120)
                 else:
-                    st.warning("Nenhum dado encontrado na tabela.")
+                    warning = st.warning("Nenhum dado encontrado na tabela!")
+                    sleep(5)
+                    warning.empty()
+
+            else:
+                driver.quit()
+                success = st.success("Navegador fechado.")
+                sleep(4)
+                success.empty()
 
                 # Opção para nova interação
-                if st.button("Teste"):
-                    # st.rerun
-                    print('CAIU NO RERUN')
-                else:
-                    sleep(120)
-                    driver.quit()
-                    st.success("Navegador fechado.")
+                # if st.button("Teste"):
+                #     # st.rerun
+                #     print('CAIU NO RERUN')
+                # else:
+                #     driver.quit()
+                #     success = st.success("Navegador fechado.")
+                #     sleep(4)
+                #     success.empty()
 
-        else:
-            if btn_submit:
-                warning = st.warning('CPF e as datas INICIAL E FINAL são obrigatórios!', icon='⚠️')
-                sleep(4)
-                warning.empty()
+    else:
+        if btn_submit:
+            warning = st.warning('CPF e as datas INICIAL E FINAL são obrigatórios!', icon='⚠️')
+            sleep(4)
+            warning.empty()
 
 if __name__ == "__main__":
     main()
